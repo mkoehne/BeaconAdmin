@@ -176,7 +176,7 @@ namespace BeaconAdmin
 		private async void ReadUUID()
 		{
 			var uuidBytes = await uuidCharacteristic.ReadAsync();
-			uuid.Text = ByteArrayToString(uuidBytes);
+			uuid.Text = UUIDByteArrayToString(uuidBytes);
 		}
 
 		private async void ReadMajor()
@@ -202,30 +202,22 @@ namespace BeaconAdmin
 				Array.Reverse(bytes);
 
 			string stringValue = BitConverter.ToString(bytes, 0);
-			try
-			{
-				int value = int.Parse(stringValue.Replace("-", ""), NumberStyles.AllowHexSpecifier);
-				return value.ToString();
-			}
-			catch (Exception ex)
-			{
-				Debug.WriteLine(ex.Message);
-				stringValue = stringValue.Replace("-", "");
-			}
-			return stringValue;
+			int value = int.Parse(stringValue.Replace("-", ""), NumberStyles.AllowHexSpecifier);
+
+			return value.ToString();
 		}
 
-		/// <summary>
-		/// Strings to byte array.
-		/// </summary>
-		/// <returns>The to byte array.</returns>
-		/// <param name="str">String.</param>
-		/*private byte[] StringToByteArray(string str)
+		private string UUIDByteArrayToString(byte[] bytes)
 		{
-			byte[] bytes = new byte[str.Length * sizeof(char)];
-			Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
-			return bytes;
-		}*/
+
+			string stringValue = BitConverter.ToString(bytes, 0);
+
+			stringValue = stringValue.Replace("-", "");
+			stringValue = stringValue.Replace("<", "");
+			stringValue = stringValue.Replace(">", "");
+
+			return stringValue;
+		}
 
 		public static byte[] StringToByteArray(string hex)
 		{
