@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using Acr.UserDialogs;
 using Plugin.BLE;
 using Plugin.BLE.Abstractions.Contracts;
@@ -28,6 +29,8 @@ namespace BeaconAdmin
 				 ScanForDevices();
 			 }));
 
+			listView.ItemTemplate = new DataTemplate(typeof(DeviceCell));
+
 			// Using ItemTapped
 			listView.ItemTapped += async (sender, e) =>
 			{
@@ -55,7 +58,7 @@ namespace BeaconAdmin
 				((ListView)sender).SelectedItem = null; // de-select the row
 			};
 
-			Padding = new Thickness(0, 20, 0, 0);
+			Padding = new Thickness(0, 0, 0, 0);
 			Content = listView;
 		}
 
@@ -71,7 +74,7 @@ namespace BeaconAdmin
 			deviceList.Clear();
 			UserDialogs.Instance.ShowLoading("Scanning...");
 			await Settings.Adapter.StartScanningForDevicesAsync();
-			listView.ItemsSource = deviceList;
+			listView.ItemsSource = deviceList.OrderByDescending(x => x.Rssi);
 			UserDialogs.Instance.HideLoading();
 		}
 
