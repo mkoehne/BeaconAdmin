@@ -107,7 +107,7 @@ namespace BeaconAdmin
 				}
 				catch (Exception ex)
 				{
-					await DisplayAlert("Error", ex.Message, "Ok");
+					UserDialogs.Instance.Alert(ex.Message, "Update UUID", "Ok");
 				}
 				UserDialogs.Instance.HideLoading();
 			}
@@ -130,7 +130,7 @@ namespace BeaconAdmin
 				}
 				catch (Exception ex)
 				{
-					await DisplayAlert("Error", ex.Message, "Ok");
+					UserDialogs.Instance.Alert(ex.Message, "Update Major", "Ok");
 				}
 
 				UserDialogs.Instance.HideLoading();
@@ -152,7 +152,7 @@ namespace BeaconAdmin
 				}
 				catch (Exception ex)
 				{
-					await DisplayAlert("Error", ex.Message, "Ok");
+					UserDialogs.Instance.Alert(ex.Message, "Update Minor", "Ok");
 				}
 				UserDialogs.Instance.HideLoading();
 			}
@@ -175,20 +175,41 @@ namespace BeaconAdmin
 
 		private async void ReadUUID()
 		{
-			var uuidBytes = await uuidCharacteristic.ReadAsync();
-			uuid.Text = UUIDByteArrayToString(uuidBytes);
+			try
+			{
+				var uuidBytes = await uuidCharacteristic.ReadAsync();
+				uuid.Text = UUIDByteArrayToString(uuidBytes);
+			}
+			catch (Exception ex)
+			{
+				UserDialogs.Instance.Alert(ex.Message, "Read UUID", "Ok");
+			}
 		}
 
 		private async void ReadMajor()
 		{
-			var majorBytes = await majorCharacteristic.ReadAsync();
-			major.Text = ByteArrayToString(majorBytes);
+			try
+			{
+				var majorBytes = await majorCharacteristic.ReadAsync();
+				major.Text = ByteArrayToString(majorBytes);
+			}
+			catch (Exception ex)
+			{
+				UserDialogs.Instance.Alert(ex.Message, "Read Major", "Ok");
+			}
 		}
 
 		private async void ReadMinor()
 		{
-			var minorBytes = await minorCharacteristic.ReadAsync();
-			minor.Text = ByteArrayToString(minorBytes);
+			try
+			{
+				var minorBytes = await minorCharacteristic.ReadAsync();
+				minor.Text = ByteArrayToString(minorBytes);
+			}
+			catch (Exception ex)
+			{
+				UserDialogs.Instance.Alert(ex.Message, "Read Minor", "Ok");
+			}
 		}
 
 		/// <summary>

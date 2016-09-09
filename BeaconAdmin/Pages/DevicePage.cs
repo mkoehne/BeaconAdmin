@@ -42,7 +42,7 @@ namespace BeaconAdmin
 				catch (DeviceConnectionException ex)
 				{
 					// ... could not connect to device
-					await DisplayAlert("Error", "Could not connect to device" + ex.Message, "OK");
+					UserDialogs.Instance.Alert("Could not connect to device" + ex.Message, "Error", "Ok");
 				}
 
 				((ListView)sender).SelectedItem = null; // de-select the row
