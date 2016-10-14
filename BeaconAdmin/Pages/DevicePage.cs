@@ -24,10 +24,7 @@ namespace BeaconAdmin
 			Settings.BLE = CrossBluetoothLE.Current;
 			Settings.Adapter = CrossBluetoothLE.Current.Adapter;
 
-			ToolbarItems.Add(new ToolbarItem("Scan", "", () =>
-			 {
-				 ScanForDevices();
-			 }));
+			ToolbarItems.Add(new ToolbarItem("Scan", "", ScanForDevices));
 
 			listView.ItemTemplate = new DataTemplate(typeof(DeviceCell));
 

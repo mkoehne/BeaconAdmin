@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 using Acr.UserDialogs;
 using Plugin.BLE.Abstractions.Contracts;
 using Xamarin.Forms;
@@ -65,6 +66,7 @@ namespace BeaconAdmin
 		protected override async void OnAppearing()
 		{
 			base.OnAppearing();
+			UserDialogs.Instance.ShowLoading("Read values...");
 			service = await device.GetServiceAsync(Guid.Parse("f0010200-f001-f001-f001-f001f001f001"));
 
 			uuidCharacteristic = await service.GetCharacteristicAsync(Guid.Parse("f0010201-f001-f001-f001-f001f001f001"));
@@ -73,17 +75,22 @@ namespace BeaconAdmin
 				uuidCharacteristic.StartUpdates();
 			ReadUUID();
 
+			await Task.Delay(1000);
+
 			majorCharacteristic = await service.GetCharacteristicAsync(Guid.Parse("f0010202-f001-f001-f001-f001f001f001"));
 			majorCharacteristic.ValueUpdated += MajorCharacteristic_ValueUpdated;
 			if (majorCharacteristic.CanUpdate)
 				majorCharacteristic.StartUpdates();
 			ReadMajor();
 
+			await Task.Delay(1000);
+
 			minorCharacteristic = await service.GetCharacteristicAsync(Guid.Parse("f0010203-f001-f001-f001-f001f001f001"));
 			minorCharacteristic.ValueUpdated += MinorCharacteristic_ValueUpdated;
 			if (minorCharacteristic.CanUpdate)
 				minorCharacteristic.StartUpdates();
 			ReadMinor();
+			UserDialogs.Instance.HideLoading();
 		}
 
 		protected override void OnDisappearing()

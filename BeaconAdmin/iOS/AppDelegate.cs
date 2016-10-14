@@ -4,6 +4,8 @@ using System.Linq;
 
 using Foundation;
 using UIKit;
+using UserNotifications;
+using Xamarin.Forms;
 
 namespace BeaconAdmin.iOS
 {
@@ -16,7 +18,17 @@ namespace BeaconAdmin.iOS
 
 			LoadApplication(new App());
 
+			UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert | UNAuthorizationOptions.Badge | UNAuthorizationOptions.Sound, (granted, error) =>
+			{
+				// Do something if needed
+			});
+
 			return base.FinishedLaunching(app, options);
+		}
+
+		public override void ReceivedLocalNotification(UIApplication application, UILocalNotification notification)
+		{
+			// Local Notifications are received here
 		}
 	}
 }

@@ -26,7 +26,6 @@ namespace BeaconAdmin.Droid
 		
 		public static void UpdateIdValues()
 		{
-			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::BeaconAdmin.Droid.Resource.Attribute.actionBarSize;
 			global::AndroidHUD.Resource.Attribute.ahBarColor = global::BeaconAdmin.Droid.Resource.Attribute.ahBarColor;
 			global::AndroidHUD.Resource.Attribute.ahBarLength = global::BeaconAdmin.Droid.Resource.Attribute.ahBarLength;
 			global::AndroidHUD.Resource.Attribute.ahBarWidth = global::BeaconAdmin.Droid.Resource.Attribute.ahBarWidth;
@@ -65,6 +64,7 @@ namespace BeaconAdmin.Droid
 			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahTextColor = global::BeaconAdmin.Droid.Resource.Styleable.ProgressWheel_ahTextColor;
 			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahTextSize = global::BeaconAdmin.Droid.Resource.Styleable.ProgressWheel_ahTextSize;
 			global::Splat.Resource.String.library_name = global::BeaconAdmin.Droid.Resource.String.library_name;
+			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::BeaconAdmin.Droid.Resource.Attribute.actionBarSize;
 		}
 		
 		public partial class Animation
